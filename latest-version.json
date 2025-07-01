@@ -1,5 +1,5 @@
 {
-	"version" : 2,
+	"version-code" : 2,
 	"patch-url" : "https://example.com",
 	"description" : "Fixed bugs"
 }
