@@ -43,18 +43,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Insert notice
         $stmt = $pdo->prepare("INSERT INTO notices (title, content, notice_date) VALUES (?, ?, ?)");
-        $stmt->execute([$title, $content, $notice_date]);
+        // $stmt->execute([$title, $content, $notice_date]);
 
         // Get FCM tokens
         $stmt = $pdo->prepare("SELECT fcm_token FROM parent_mobile_sessions");
         $stmt->execute();
         $fcm_tokens = $stmt->fetchAll();
+        $fcm_tokens = array_column($fcm_tokens, 'fcm_token');
 
         // Send notifications
-        $notification_title = $title . " (" . $notice_date . ")";
         $notification_sent = true;
         try {
-            sendFirebaseNotification($fcm_tokens, $notification_title, $content);
+            if (!empty($fcm_tokens)) {
+                $notification_title = $title . " (" . $notice_date . ")";
+                $data = [
+                    'title' => $notification_title,
+                    'message' => $content
+                ];
+                $result =sendFirebaseNotification($fcm_tokens, $notification_title, $content, $data);
+                // Check if the notification was sent successfully
+                if (!$result['success']) {
+                    $notification_sent = false;
+                }
+            } else {
+                $notification_sent = false; // No tokens to send notification
+            }
         } catch (Exception $e) {
             $notification_sent = false;
             // Log this error if you have a logging system
@@ -65,7 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $response = [
             'success' => true,
-            'message' => 'Notice added successfully'
+            'message' => 'Notice added successfully',
+            'notification_sent' => $notification_sent
         ];
         if (!$notification_sent) {
             $response['notification_sent'] = false;
@@ -83,4 +97,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
-?>
