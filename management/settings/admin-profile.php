@@ -43,6 +43,7 @@ if (!empty($admin['role_id'])) {
                             <div class="col-md-6">
                                 <p><strong>Full Name:</strong> <?= safe_htmlspecialchars($admin['full_name']) ?></p>
                                 <p><strong>Username:</strong> <span id="currentUsernameShowSpan"><?= safe_htmlspecialchars($admin['username']) ?></span></p>
+                                <p><strong>Email:</strong> <span id="currentEmailShowSpan"><?= safe_htmlspecialchars($admin['email']) ?></span></p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Admin Type:</strong> <?= safe_htmlspecialchars($role_name) ?></p>
