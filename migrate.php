@@ -22,12 +22,11 @@ $sql = "CREATE TABLE `drivers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
 // Execute the query
-if ($conn->query($sql) === TRUE) {
+if ($pdo->query($sql) === TRUE) {
     echo "Table 'drivers' created successfully.";
 } else {
-    echo "Error creating table: " . $conn->error;
+    echo "Error creating table";
 }
 
 // Close the connection
-$conn->close();
 ?>
