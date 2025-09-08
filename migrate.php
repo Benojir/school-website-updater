@@ -2,14 +2,17 @@
 
 include_once("includes/db.php");
 
-// Create the 'drivers' table
-$sql = "ALTER TABLE `students` ADD `driver_id` INT NULL DEFAULT NULL AFTER `car_route`";
-$sql2 = "ALTER TABLE `students` ADD `religion` VARCHAR(30) NULL DEFAULT NULL AFTER `email`, ADD `registration_no` VARCHAR(50) NULL DEFAULT NULL AFTER `religion`";
+// Create the 'is_absent' and 'is_excluded' columns in 'subject_marks' table
+$sql = "ALTER TABLE `subject_marks` 
+        ADD `is_absent` TINYINT NOT NULL DEFAULT '0' AFTER `remarks`, 
+        ADD `is_excluded` TINYINT NOT NULL DEFAULT '0' AFTER `is_absent`";
 
 // Execute the query
-if ($pdo->query($sql) === TRUE && $pdo->query($sql2) === TRUE) {
+if ($pdo->query($sql)) {
     echo "Columns created successfully.";
 } else {
-    echo "Error creating table";
+    $error = $pdo->errorInfo();
+    echo "Error creating columns: " . $error[2];
 }
+
 ?>
