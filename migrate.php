@@ -9,4 +9,6 @@ $query2 = "ALTER TABLE admission_enquiries ADD preferred_by VARCHAR(100) NULL DE
 $query3 = "ALTER TABLE admission_enquiries ADD religion VARCHAR(30) NULL DEFAULT NULL AFTER preffered_by";
     
 $pdo->exec($query1);
+$pdo->exec($query2);
+$pdo->exec($query3);
 ?>
