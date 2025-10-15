@@ -5,25 +5,7 @@
 echo "Starting Database Migration...<br>";
 
 try {
-    $pdo->exec("RENAME TABLE class_wise_fee TO class_wise_monthly_fees");
-    $pdo->exec("RENAME TABLE class_wise_admission_fees TO class_wise_new_admission_fees");
-
-    $pdo->exec("
-        CREATE TABLE `class_wise_re_admission_fees` (
-            `id` INT(11) NOT NULL AUTO_INCREMENT,
-            `class_id` INT(11) NOT NULL,
-            `amount` DECIMAL(10,2) NOT NULL,
-            PRIMARY KEY (`id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
-    ");
-
-    $pdo->exec("
-        ALTER TABLE `class_wise_re_admission_fees`
-        ADD CONSTRAINT `fk_class_wise_re_admission_fees_class_id`
-        FOREIGN KEY (`class_id`) REFERENCES `classes`(`id`)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-    ");
+    $pdo->exec("ALTER TABLE `students` ADD `village` VARCHAR(50) NULL DEFAULT NULL AFTER `address`, ADD `post_office` VARCHAR(50) NULL DEFAULT NULL AFTER `village`, ADD `police_station` VARCHAR(50) NULL DEFAULT NULL AFTER `post_office`, ADD `district` VARCHAR(50) NULL DEFAULT NULL AFTER `police_station`, ADD `pin_code` VARCHAR(15) NULL DEFAULT NULL AFTER `district`, ADD `student_adhaar_no` VARCHAR(20) NULL DEFAULT NULL AFTER `pin_code`, ADD `father_adhaar_no` VARCHAR(20) NULL DEFAULT NULL AFTER `student_adhaar_no`, ADD `mother_adhaar_no` VARCHAR(20) NULL DEFAULT NULL AFTER `father_adhaar_no`");
 
     echo "Database migration successfully done!<br>";
 } catch (PDOException $e) {
