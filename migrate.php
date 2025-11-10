@@ -5,7 +5,18 @@
 echo "Starting Database Migration...<br>";
 
 try {
-    $pdo->exec("ALTER TABLE `students` ADD `village` VARCHAR(50) NULL DEFAULT NULL AFTER `address`, ADD `post_office` VARCHAR(50) NULL DEFAULT NULL AFTER `village`, ADD `police_station` VARCHAR(50) NULL DEFAULT NULL AFTER `post_office`, ADD `district` VARCHAR(50) NULL DEFAULT NULL AFTER `police_station`, ADD `pin_code` VARCHAR(15) NULL DEFAULT NULL AFTER `district`, ADD `student_adhaar_no` VARCHAR(20) NULL DEFAULT NULL AFTER `pin_code`, ADD `father_adhaar_no` VARCHAR(20) NULL DEFAULT NULL AFTER `student_adhaar_no`, ADD `mother_adhaar_no` VARCHAR(20) NULL DEFAULT NULL AFTER `father_adhaar_no`");
+    $pdo->exec("RENAME TABLE `parent_mobile_sessions` TO `parent_auth_sessions`");
+	
+	$pdo->exec("ALTER TABLE `parent_auth_sessions` ADD COLUMN `session_source` VARCHAR(20) DEFAULT 'mobile' AFTER `fcm_token`");
+	
+	$pdo->exec("CREATE TABLE `mobile_notification_logs` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `student_ids` TEXT DEFAULT NULL,
+  `notification_title` TEXT DEFAULT NULL,
+  `notification_body` TEXT DEFAULT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
     echo "Database migration successfully done!<br>";
 } catch (PDOException $e) {
