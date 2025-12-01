@@ -5,9 +5,7 @@
 echo "Starting Database Migration...<br>";
 
 try {
-    $pdo->exec("ALTER TABLE users
-  DROP remember_token,
-  DROP token_expiry");
+    $pdo->exec("RENAME TABLE student_permissions TO student_download_permissions");
 	
     echo "Database migration successfully done!<br>";
 } catch (PDOException $e) {
