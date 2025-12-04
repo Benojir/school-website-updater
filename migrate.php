@@ -5,7 +5,20 @@
 echo "Starting Database Migration...<br>";
 
 try {
-    $pdo->exec("RENAME TABLE student_permissions TO student_download_permissions");
+    $pdo->exec("ALTER TABLE exam_routines
+  DROP COLUMN room_number,
+  CHANGE exam_date theory_exam_date DATE NOT NULL,
+  CHANGE start_time theory_start_time TIME NOT NULL,
+  CHANGE end_time theory_end_time TIME NOT NULL,
+  ADD COLUMN practical_exam_date DATE DEFAULT NULL AFTER theory_end_time,
+  ADD COLUMN practical_start_time TIME DEFAULT NULL AFTER practical_exam_date,
+  ADD COLUMN practical_end_time TIME DEFAULT NULL AFTER practical_start_time");
+  
+  $pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_name device_name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
+  
+  $pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_id device_id VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
+  
+  $pdo->exec("ALTER TABLE exam_routines ADD UNIQUE KEY unique_subject_routine (exam_id, class_id, subject_id)");
 	
     echo "Database migration successfully done!<br>";
 } catch (PDOException $e) {
