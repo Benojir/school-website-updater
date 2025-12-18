@@ -2,27 +2,31 @@
 
 //include_once("includes/db.php"); No need to include this as the update.php already included
 
-echo "Starting Database Migration...<br>";
+echo "Starting Migration Script...<br>";
 
 try {
-    $pdo->exec("ALTER TABLE exam_routines
-  DROP COLUMN room_number,
-  CHANGE exam_date theory_exam_date DATE NOT NULL,
-  CHANGE start_time theory_start_time TIME NOT NULL,
-  CHANGE end_time theory_end_time TIME NOT NULL,
-  ADD COLUMN practical_exam_date DATE DEFAULT NULL AFTER theory_end_time,
-  ADD COLUMN practical_start_time TIME DEFAULT NULL AFTER practical_exam_date,
-  ADD COLUMN practical_end_time TIME DEFAULT NULL AFTER practical_start_time");
   
-  $pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_name device_name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
+  //$pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_name device_name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
   
-  $pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_id device_id VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
+  //$pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_id device_id VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
   
-  $pdo->exec("ALTER TABLE exam_routines ADD UNIQUE KEY unique_subject_routine (exam_id, class_id, subject_id)");
+  //$pdo->exec("ALTER TABLE exam_routines ADD UNIQUE KEY unique_subject_routine (exam_id, class_id, subject_id)");
 	
-    echo "Database migration successfully done!<br>";
+    //echo "Database migration successfully done!<br>";
+	
+	$delete_file_path = "../management/settings/school-information.php";
+	
+	if(file_exists($delete_file_path)){
+		if (!unlink($delete_file_path)) {
+			echo "File delete failed!<br>";
+		} else {
+			echo "File delete success!<br>File path $delete_file_path <br>";
+		}
+	}
 } catch (PDOException $e) {
     echo "Database migration failed! Error: " . $e->getMessage() . "<br>";
+} catch (Exception $e) {
+	echo "Migration script failed! Error: " . $e->getMessage() . "<br>";
 }
 
 ?>
