@@ -8,20 +8,20 @@ try {
   
   //$pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_name device_name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
   
-  //$pdo->exec("ALTER TABLE admin_auth_sessions CHANGE device_id device_id VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL");
+  $pdo->exec("ALTER TABLE `settings_marksheet` ADD `show_text_watermark` TINYINT NULL DEFAULT NULL AFTER `include_minor_subjects_marks`");
   
-  //$pdo->exec("ALTER TABLE exam_routines ADD UNIQUE KEY unique_subject_routine (exam_id, class_id, subject_id)");
+  $pdo->exec("ALTER TABLE `subjects` ADD `marksheet_order_by` INT NULL DEFAULT NULL AFTER `class_id`");
 	
-    //echo "Database migration successfully done!<br>";
+    echo "Database migration successfully done!<br>";
 	
-	$delete_file_path = "../management/settings/school-information.php";
+	//$delete_file_path = "../management/settings/school-information.php";
 	
-	if(file_exists($delete_file_path)){
-		if (!unlink($delete_file_path)) {
-			echo "File delete failed!<br>";
-		} else {
-			echo "File delete success!<br>File path $delete_file_path <br>";
-		}
+	//if(file_exists($delete_file_path)){
+		//if (!unlink($delete_file_path)) {
+			//echo "File delete failed!<br>";
+		//} else {
+			//echo "File delete success!<br>File path $delete_file_path <br>";
+		//}
 	}
 } catch (PDOException $e) {
     echo "Database migration failed! Error: " . $e->getMessage() . "<br>";
