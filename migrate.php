@@ -22,7 +22,7 @@ try {
 		//} else {
 			//echo "File delete success!<br>File path $delete_file_path <br>";
 		//}
-	}
+	//}
 } catch (PDOException $e) {
     echo "Database migration failed! Error: " . $e->getMessage() . "<br>";
 } catch (Exception $e) {
