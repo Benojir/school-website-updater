@@ -8,10 +8,7 @@ try {
   
   //$pdo->exec("ALTER TABLE `results` ADD `section_id` INT NULL DEFAULT NULL AFTER `class_id`");
   
-  $pdo->exec("ALTER TABLE results
-MODIFY COLUMN total_minor_marks DECIMAL(10, 2) DEFAULT 0,
-MODIFY COLUMN obtained_minor_marks DECIMAL(10, 2) DEFAULT 0,
-MODIFY COLUMN percentage_without_minor DECIMAL(10, 2) DEFAULT 0");
+  $pdo->exec("ALTER TABLE `subjects` ADD `mark_entry_order_by` INT NULL DEFAULT NULL AFTER `marksheet_order_by`");
 	
   echo "Database migration successfully done!<br>";
 
