@@ -8,7 +8,7 @@ try {
   
   //$pdo->exec("ALTER TABLE `results` ADD `section_id` INT NULL DEFAULT NULL AFTER `class_id`");
   
-  $pdo->exec("ALTER TABLE `subjects` ADD `mark_entry_order_by` INT NULL DEFAULT NULL AFTER `marksheet_order_by`");
+  $pdo->exec("ALTER TABLE `website_config` ADD `404_template` VARCHAR(50) NULL DEFAULT NULL AFTER `website_template`");
 	
   echo "Database migration successfully done!<br>";
 
