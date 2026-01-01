@@ -8,7 +8,14 @@ try {
   
   //$pdo->exec("ALTER TABLE `results` ADD `section_id` INT NULL DEFAULT NULL AFTER `class_id`");
   
-  $pdo->exec("ALTER TABLE `website_config` ADD `404_template` VARCHAR(50) NULL DEFAULT NULL AFTER `website_template`");
+  $pdo->exec("CREATE TABLE `student_id_card_settings` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `template` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `school_address` text COLLATE utf8mb4_general_ci,
+  `school_contacts` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `colors` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	
   echo "Database migration successfully done!<br>";
 
