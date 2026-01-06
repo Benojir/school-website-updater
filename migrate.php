@@ -8,14 +8,7 @@ try {
   
   //$pdo->exec("ALTER TABLE `results` ADD `section_id` INT NULL DEFAULT NULL AFTER `class_id`");
   
-  $pdo->exec("CREATE TABLE `student_id_card_settings` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `template` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `school_address` text COLLATE utf8mb4_general_ci,
-  `school_contacts` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `colors` text COLLATE utf8mb4_general_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+  $pdo->exec("DROP TABLE IF EXISTS class_roll_numbers, graduation_logs, promotion_logs");
 	
   echo "Database migration successfully done!<br>";
 
