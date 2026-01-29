@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `admission_fees_payment_history` ADD `entry_by` INT NULL DEFAULT NULL AFTER `method`";
+	$sql1 = "ALTER TABLE `subjects` ADD `exclude_from_marksheet` TINYINT(1) NOT NULL DEFAULT '0' AFTER `class_id`";
 	$pdo->exec($sql1);
 	
 	echo "Database migration successfully done!<br>";
