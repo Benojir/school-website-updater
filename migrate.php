@@ -5,10 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `website_config`
-  DROP `sms_api_key`,
-  DROP `whatsapp_access_token`,
-  DROP `whatsapp_phone_number_id`";
+	$sql1 = "UPDATE students set academic_year = '2025' WHERE academic_year = '2026'";
 	
 	$pdo->exec($sql1);
 	
