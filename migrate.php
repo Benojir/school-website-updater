@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "UPDATE students set academic_year = '2025' WHERE academic_year = '2026'";
+	$sql1 = "ALTER TABLE `website_config` ADD `additional_settings` TEXT NULL DEFAULT NULL AFTER `currency_symbol`";
 	
 	$pdo->exec($sql1);
 	
