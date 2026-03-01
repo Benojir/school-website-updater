@@ -5,15 +5,9 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `student_payment_history` ADD `entry_by` INT NULL DEFAULT NULL AFTER `method`";
-	$sql2 = "ALTER TABLE `users` ADD `security_pin` INT NOT NULL DEFAULT '123456' AFTER `email`";
-	$sql3 = "ALTER TABLE `admin_auth_sessions` ADD `security_pin` INT NULL DEFAULT NULL AFTER `full_name`";
-	$sql4 = "DELETE FROM admin_auth_sessions";
+	$sql1 = "ALTER TABLE `teachers` ADD `position_in_school` VARCHAR(100) NULL DEFAULT NULL AFTER `phone`, ADD `village` VARCHAR(100) NULL DEFAULT NULL AFTER `position_in_school`, ADD `post_office` VARCHAR(100) NULL DEFAULT NULL AFTER `village`, ADD `police_station` VARCHAR(100) NULL DEFAULT NULL AFTER `post_office`, ADD `district` VARCHAR(100) NULL DEFAULT NULL AFTER `police_station`, ADD `pincode` VARCHAR(100) NULL DEFAULT NULL AFTER `district`";
 	
 	$pdo->exec($sql1);
-	$pdo->exec($sql2);
-	$pdo->exec($sql3);
-	$pdo->exec($sql4);
 	
 	echo "Database migration successfully done! 😅<br>";
 
