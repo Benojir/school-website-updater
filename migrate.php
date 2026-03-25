@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `teacher_applications` ADD `village` VARCHAR(100) NULL DEFAULT NULL AFTER `specialization`, ADD `post_office` VARCHAR(100) NULL DEFAULT NULL AFTER `village`, ADD `police_station` VARCHAR(100) NULL DEFAULT NULL AFTER `post_office`, ADD `district` VARCHAR(100) NULL DEFAULT NULL AFTER `police_station`, ADD `pincode` VARCHAR(100) NULL DEFAULT NULL AFTER `district`";
+	$sql1 = "ALTER TABLE `teachers` ADD `aadhaar_number` VARCHAR(50) NULL DEFAULT NULL AFTER `position_in_school`, ADD `monthly_salary` DECIMAL NOT NULL DEFAULT '0' AFTER `aadhaar_number`, ADD `assigned_sections` VARCHAR(255) NULL DEFAULT NULL AFTER `monthly_salary`";
 	
 	$pdo->exec($sql1);
 	
