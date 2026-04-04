@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `teachers` ADD `aadhaar_number` VARCHAR(50) NULL DEFAULT NULL AFTER `position_in_school`, ADD `monthly_salary` DECIMAL NOT NULL DEFAULT '0' AFTER `aadhaar_number`, ADD `assigned_sections` VARCHAR(255) NULL DEFAULT NULL AFTER `monthly_salary`";
+	$sql1 = "ALTER TABLE `settings_marksheet` ADD `hide_top_rankers` TINYINT(1) NOT NULL DEFAULT '0' AFTER `section_based_ranking`, ADD `hide_position_in_class` TINYINT(1) NOT NULL DEFAULT '0' AFTER `hide_top_rankers`";
 	
 	$pdo->exec($sql1);
 	
