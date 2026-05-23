@@ -5,9 +5,11 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `settings_marksheet` ADD `marksheet_system` VARCHAR(20) NULL DEFAULT NULL AFTER `hide_position_in_class`;";
+	$sql1 = "DELETE s FROM subjects s LEFT JOIN classes c ON s.class_id = c.id WHERE c.id IS NULL";
+	$sql2 = "ALTER TABLE subjects ADD CONSTRAINT fk_subjects_delete FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE";
 	
 	$pdo->exec($sql1);
+	$pdo->exec($sql2);
 	
 	echo "Database migration successfully done! 😅<br>";
 
