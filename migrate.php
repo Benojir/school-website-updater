@@ -5,11 +5,9 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "DELETE s FROM subjects s LEFT JOIN classes c ON s.class_id = c.id WHERE c.id IS NULL";
-	$sql2 = "ALTER TABLE subjects ADD CONSTRAINT fk_subjects_delete FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE";
+	$sql1 = "ALTER TABLE `users` CHANGE `security_pin` `security_pin` VARCHAR(6) NOT NULL DEFAULT '123456';";
 	
 	$pdo->exec($sql1);
-	$pdo->exec($sql2);
 	
 	echo "Database migration successfully done! 😅<br>";
 
