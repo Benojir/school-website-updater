@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `users` CHANGE `security_pin` `security_pin` VARCHAR(6) NOT NULL DEFAULT '123456';";
+	$sql1 = "ALTER TABLE `admin_auth_sessions` DROP `user_role`, DROP `username`, DROP `full_name`, DROP `security_pin`;";
 	
 	$pdo->exec($sql1);
 	
