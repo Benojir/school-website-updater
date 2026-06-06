@@ -5,29 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `admission_unpaid_fees` CHANGE `actual_amount` `actual_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_unpaid_fees` CHANGE `unpaid_amount` `unpaid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_unpaid_fees` CHANGE `discount_amount` `discount_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_partial_fees_payments` CHANGE `partial_paid_amount` `partial_paid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_full_paid_fees` CHANGE `actual_amount` `actual_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_full_paid_fees` CHANGE `discount_amount` `discount_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_full_paid_fees` CHANGE `total_paid_amount` `total_paid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_full_paid_fees` CHANGE `last_paid_amount` `last_paid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_fees_payment_history` CHANGE `payment_amount` `payment_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `admission_fees_payment_history` CHANGE `wallet_affected_balance` `wallet_affected_balance` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_full_paid_fees` CHANGE `actual_amount` `actual_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_full_paid_fees` CHANGE `discount_amount` `discount_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_full_paid_fees` CHANGE `total_paid_amount` `total_paid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_full_paid_fees` CHANGE `last_paid_amount` `last_paid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_partial_payments` CHANGE `partial_paid_amount` `partial_paid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_payment_history` CHANGE `wallet_affected_balance` `wallet_affected_balance` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_payment_history` CHANGE `payment_amount` `payment_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_unpaid_fees` CHANGE `actual_amount` `actual_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_unpaid_fees` CHANGE `unpaid_amount` `unpaid_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `student_unpaid_fees` CHANGE `discount_amount` `discount_amount` DECIMAL(10,2) NULL DEFAULT NULL;
-ALTER TABLE `class_wise_monthly_fees` CHANGE `amount` `amount` DECIMAL(10,2) NOT NULL;
-ALTER TABLE `class_wise_additional_fees` CHANGE `amount` `amount` DECIMAL(10,2) NOT NULL;
-ALTER TABLE `class_wise_new_admission_fees` CHANGE `amount` `amount` DECIMAL(10,2) NOT NULL;";
+	$sql1 = "ALTER TABLE `student_payment_history` CHANGE `partial_payment_ids_backup` `partial_payment_ids_backup` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;";
 	
 	$pdo->exec($sql1);
 	
