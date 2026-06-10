@@ -5,7 +5,8 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `student_payment_history` CHANGE `partial_payment_ids_backup` `partial_payment_ids_backup` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;";
+	$sql1 = "ALTER TABLE `otp_verification` CHANGE `purpose` `purpose` ENUM('signup','password_reset','login') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+ALTER TABLE `parent_auth_sessions` ADD `phone` VARCHAR(15) NULL DEFAULT NULL AFTER `parent_id`;";
 	
 	$pdo->exec($sql1);
 	
