@@ -5,10 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `school_information` ADD `alternate_phone` VARCHAR(20) NULL DEFAULT NULL AFTER `phone`;
-ALTER TABLE `school_information` ADD `village` TEXT NULL DEFAULT NULL AFTER `address`, ADD `post_office` TEXT NULL DEFAULT NULL AFTER `village`, ADD `police_station` TEXT NULL DEFAULT NULL AFTER `post_office`, ADD `district` TEXT NULL DEFAULT NULL AFTER `police_station`, ADD `pincode` VARCHAR(20) NULL DEFAULT NULL AFTER `district`;
-ALTER TABLE `school_information` ADD `google_map_embed_link` TEXT NULL DEFAULT NULL AFTER `google_map_link`;
-ALTER TABLE `school_information` ADD `campus_name` TEXT NULL DEFAULT NULL AFTER `pincode`;";
+	$sql1 = "ALTER TABLE `results` ADD `result_roll_no` INT NULL AFTER `section_id`;";
 	
 	$pdo->exec($sql1);
 	
