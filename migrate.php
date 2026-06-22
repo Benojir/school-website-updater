@@ -5,9 +5,18 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql1 = "ALTER TABLE `website_config` ADD `firebase_config` TEXT NULL DEFAULT NULL AFTER `imgbb_api_key`;";
+	$sql = "ALTER TABLE `website_config`
+  DROP `admission_open`,
+  DROP `teacher_application`,
+  DROP `total_student_show`,
+  DROP `admin_login_option_show`,
+  DROP `allow_online_payment`,
+  DROP `show_teachers_on_front_page`,
+  DROP `id_card_style`;
+  ALTER TABLE `website_config` DROP `country_code`;
+  ALTER TABLE `website_config` ADD `fbase_service_account_key` TEXT NULL DEFAULT NULL AFTER `firebase_config`;";
 	
-	$pdo->exec($sql1);
+	$pdo->exec($sql);
 	
 	echo "Database migration successfully done! 😅<br>";
 
