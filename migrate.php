@@ -5,7 +5,8 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql = "ALTER TABLE `school_information` ADD `apps_link` JSON NULL DEFAULT NULL AFTER `google_map_embed_link`;ALTER TABLE `school_information` DROP `app_download_link`;";
+	$sql = "ALTER TABLE `drivers` ADD `route_ids` TEXT NULL DEFAULT NULL AFTER `route_id`;
+ALTER TABLE `drivers` CHANGE `email` `email` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;";
 	
 	$pdo->exec($sql);
 	
