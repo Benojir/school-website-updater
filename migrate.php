@@ -5,8 +5,10 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql = "ALTER TABLE `drivers` ADD `route_ids` TEXT NULL DEFAULT NULL AFTER `route_id`;
-ALTER TABLE `drivers` CHANGE `email` `email` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;";
+	$sql = "ALTER TABLE `students` CHANGE `car_fee` `car_fee` DECIMAL(10,2) NOT NULL DEFAULT '0';
+ALTER TABLE `students` CHANGE `hostel_fee` `hostel_fee` DECIMAL(10,2) NOT NULL DEFAULT '0';
+ALTER TABLE `students` CHANGE `custom_class_fee` `custom_class_fee` DECIMAL(10,2) NOT NULL DEFAULT '0';
+ALTER TABLE `students` ADD `coaching_fee` DECIMAL(10,2) NULL DEFAULT '0' AFTER `hostel_fee`, ADD `tiffin_fee` DECIMAL(10,2) NULL DEFAULT '0' AFTER `coaching_fee`;";
 	
 	$pdo->exec($sql);
 	
