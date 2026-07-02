@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql = "ALTER TABLE `student_id_card_settings` ADD `font_sizes` TEXT NULL DEFAULT NULL AFTER `colors`;";
+	$sql = "ALTER TABLE `parent_auth_sessions` ADD `app_version` VARCHAR(20) NULL DEFAULT NULL AFTER `ip_address`;";
 	
 	$pdo->exec($sql);
 	
