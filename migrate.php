@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql = "ALTER TABLE `parent_auth_sessions` ADD `app_version` VARCHAR(20) NULL DEFAULT NULL AFTER `ip_address`;";
+	$sql = "ALTER TABLE `student_payment_history` CHANGE `id` `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT;";
 	
 	$pdo->exec($sql);
 	
