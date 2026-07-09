@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql = "ALTER TABLE `admission_fees_payment_history` CHANGE `partial_payment_ids_backup` `partial_payment_ids_backup` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;";
+	$sql = "ALTER TABLE `website_config` ADD `auto_request_monthly_fees_day` VARCHAR(5) NULL DEFAULT NULL AFTER `timezone`;";
 	
 	$pdo->exec($sql);
 	
