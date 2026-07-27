@@ -5,37 +5,19 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql = "ALTER TABLE sections DROP COLUMN bot_token;
-ALTER TABLE `sections` CHANGE `chat_id` `telegram_chat_id` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
-CREATE TABLE `student_homeworks` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `message_id` bigint UNSIGNED NOT NULL,
-  `media_group_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `message_text` text COLLATE utf8mb4_general_ci,
-  `file_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `file_type` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'text',
-  `file_name` text COLLATE utf8mb4_general_ci,
-  `file_size` text COLLATE utf8mb4_general_ci,
-  `file_width` int DEFAULT NULL,
-  `file_height` int DEFAULT NULL,
-  `thumb_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `thumb_width` int DEFAULT NULL,
-  `thumb_height` int DEFAULT NULL,
-  `status` enum('active','deleted') COLLATE utf8mb4_general_ci DEFAULT 'active',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci AUTO_INCREMENT=10;
-CREATE TABLE `homework_section_map` (
-  `homework_id` bigint UNSIGNED NOT NULL,
-  `section_id` int NOT NULL,
-  PRIMARY KEY (`homework_id`, `section_id`),
-  KEY `fk_homework_section_map` (`section_id`),
-  CONSTRAINT `fk_homework_section_map` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_homework_section_map_homework_id` FOREIGN KEY (`homework_id`) REFERENCES `student_homeworks` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
+	$sql = "ALTER TABLE teacher_auth_sessions ADD CONSTRAINT fk_teachers_auth FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE;
+ALTER TABLE `teacher_auth_sessions` ADD `fcm_token` TEXT NULL DEFAULT NULL AFTER `device_name`;
+ALTER TABLE `teacher_auth_sessions` ADD `app_version` VARCHAR(20) NULL DEFAULT NULL AFTER `ip_address`;
+ALTER TABLE `teacher_auth_sessions` ADD `created_at` TIMESTAMP NOT NULL AFTER `app_version`;
+ALTER TABLE `teacher_auth_sessions` CHANGE `updated_at` `last_activity` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `teacher_auth_sessions` DROP FOREIGN KEY `fk_teacher_accounts`;
+DROP TABLE IF EXISTS `attendance`;
+ALTER TABLE `mobile_notification_logs` CHANGE `id` `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT;
+RENAME TABLE mobile_notification_logs TO student_notifications_log;
+ALTER TABLE `website_config` ADD `file_storage_channel_id` TEXT NULL DEFAULT NULL AFTER `telegram_bot_token`;
+ALTER TABLE `student_homeworks` ADD `posted_by` VARCHAR(100) NULL DEFAULT NULL AFTER `status`;";
 
-	echo "<span class='text-info'>Executing $sql</span>";
+	echo "<span class='text-info'>Executing $sql</span><br>";
 	
 	$pdo->exec($sql);
 	
