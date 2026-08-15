@@ -1,7 +1,7 @@
 <?php
 
 //include_once("includes/db.php"); No need to include this as the update.php already included
-$file_path = __DIR__ . "/../aaa.sql"; // Path to the database configuration file
+$file_path = __DIR__ . "/aaa.sql"; // Path to the database configuration file
 
 // Check if the file exists
 if (!file_exists($file_path)) {
