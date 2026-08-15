@@ -1,19 +1,11 @@
 <?php
 
 //include_once("includes/db.php"); No need to include this as the update.php already included
-$file_path = __DIR__ . "/aaa.sql"; // Path to the database configuration file
-
-// Check if the file exists
-if (!file_exists($file_path)) {
-    die("Database configuration file not found!");
-}
-
-$sql = file_get_contents($file_path);
 
 echo "Starting Migration Script...<br>";
 
 try {
-	// $sql = "";
+	$sql = "ALTER TABLE `students` ADD `landmark` VARCHAR(255) NULL DEFAULT NULL AFTER `address`;";
 
 	echo "<span class='text-info'>Executing:<br>$sql</span><br>";
 	
