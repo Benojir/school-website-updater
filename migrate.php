@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql = "ALTER TABLE `students` ADD `landmark` VARCHAR(255) NULL DEFAULT NULL AFTER `address`;";
+	$sql = "ALTER TABLE `sections` DROP `telegram_chat_id`;";
 
 	echo "<span class='text-info'>Executing:<br>$sql</span><br>";
 	
