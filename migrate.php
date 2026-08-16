@@ -12,10 +12,6 @@ try {
 	$pdo->exec($sql);
 	
 	echo "Database migration successfully done! 😅<br>";
-	// Delete the .sql file now
-	if (unlink($file_path)) {
-		echo "SQL file deleted successfully.<br>";
-	}
 
 } catch (PDOException $e) {
     echo "Database migration failed! Error: " . $e->getMessage() . "<br>";
