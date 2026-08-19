@@ -5,7 +5,7 @@
 echo "Starting Migration Script...<br>";
 
 try {
-	$sql_file = "./migrate.sql";
+	$sql_file = "../migrate.sql";
 
 	if (file_exists($sql_file)) {
 
