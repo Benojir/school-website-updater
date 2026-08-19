@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 19, 2026 at 09:05 AM
+-- Generation Time: Aug 19, 2026 at 09:37 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.4.12
 
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `settings_admit_card` (
   `id` bigint NOT NULL,
-  `admit_card_design` varchar(50) DEFAULT 'design-1',
+  `admit_card_design` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'design-1',
   `colors` json DEFAULT NULL,
-  `school_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `school_contact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `instructions` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `school_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `school_contact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `instructions` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `settings_admit_card`
