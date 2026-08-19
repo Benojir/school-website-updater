@@ -19,7 +19,7 @@ try {
 
 		echo "<span class='text-success'>Database migration successfully done! 😅</span><br>";
 	} else {
-		echo "<span class='text-danger'>.sql file does not exist. Failed migration.</span><br>";
+		echo "<span class='text-danger'>.sql file does not exist. Migration failed.</span><br>";
 	}
 } catch (PDOException $e) {
 	echo "Database migration failed! Error: " . $e->getMessage() . "<br>";
