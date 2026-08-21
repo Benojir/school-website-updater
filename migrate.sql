@@ -1,69 +1,59 @@
--- phpMyAdmin SQL Dump
--- version 6.0.0-dev+20260729.a0d1231b75
--- https://www.phpmyadmin.net/
+-- --------------------------------------------------------
+-- Migration: Deleted payment logs
 --
--- Host: localhost:3306
--- Generation Time: Aug 19, 2026 at 09:37 AM
--- Server version: 8.4.3
--- PHP Version: 8.4.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
+-- Stores an audit record every time an admin deletes a payment from
+-- `student_payment_history` (monthly) or
+-- `admission_fees_payment_history` (admission).
 --
--- Database: `school_erp`
+-- Nothing is duplicated in this table. Only IDs are stored:
+--   `student_id`        -> joined to `students` for name / class / roll / father / phone
+--   `payment_entry_by`  -> joined to `users` for the name of the receiving admin
+--   `deleted_by`        -> joined to `users` for the name of the deleting admin
+-- so renaming a student or an admin later is reflected in the log automatically.
 --
-
+-- Run this once on the school_erp database (phpMyAdmin -> SQL tab).
 -- --------------------------------------------------------
 
---
--- Table structure for table `settings_admit_card`
---
-
-CREATE TABLE `settings_admit_card` (
-  `id` bigint NOT NULL,
-  `admit_card_design` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'design-1',
-  `colors` json DEFAULT NULL,
-  `school_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `school_contact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `instructions` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
+CREATE TABLE IF NOT EXISTS `deleted_payment_logs` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `payment_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `original_payment_id` bigint UNSIGNED DEFAULT NULL,
+  `student_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `payment_amount` decimal(10,2) DEFAULT NULL,
+  `payment_date` date DEFAULT NULL,
+  `payment_remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `wallet_affected_balance` decimal(10,2) DEFAULT NULL,
+  `wallet_transaction_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `payment_entry_by` int DEFAULT NULL,
+  `payment_recorded_at` timestamp NULL DEFAULT NULL,
+  `payment_snapshot` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `deleted_by` int DEFAULT NULL,
+  `deleted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_dpl_payment_type` (`payment_type`),
+  KEY `idx_dpl_student_id` (`student_id`),
+  KEY `idx_dpl_payment_entry_by` (`payment_entry_by`),
+  KEY `idx_dpl_deleted_by` (`deleted_by`),
+  KEY `idx_dpl_deleted_at` (`deleted_at`),
+  KEY `idx_dpl_payment_date` (`payment_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `settings_admit_card`
---
+-- --------------------------------------------------------
+-- ONLY run the block below if you already created this table with an earlier
+-- version that duplicated the student / admin names. It drops those columns.
+-- Remove any lines for columns you never created.
+-- --------------------------------------------------------
 
-INSERT INTO `settings_admit_card` (`id`, `admit_card_design`, `colors`, `school_address`, `school_contact`, `instructions`) VALUES
-(5, 'design-1', '{\"dark\": \"#2b3a5a\", \"light\": \"#f0f5ff\", \"primary\": \"#3a4a6d\", \"background\": \"#ffffff\", \"school_name\": \"#eff0f2\", \"school_address\": \"#ffffff\"}', 'Teghari Bazar, Rajput Teghari, Raghunathganj, Murshidabad, 742213', 'Phone: 8348313317 / 9083156928', '# Examination Instructions\r\n\r\n1. Bring this Admit Card to the examination hall.\r\n2. Report at least **30 minutes before** the exam.\r\n3. Bring your required stationery.\r\n4. Mobile phones and electronic devices are not allowed.\r\n5. Follow the invigilator’s instructions.\r\n6. Use of unfair means will lead to disqualification.\r\n\r\n**Best of Luck!**\r\n');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `settings_admit_card`
---
-ALTER TABLE `settings_admit_card`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `settings_admit_card`
---
-ALTER TABLE `settings_admit_card`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- ALTER TABLE `deleted_payment_logs`
+--   DROP COLUMN `student_name`,
+--   DROP COLUMN `student_image`,
+--   DROP COLUMN `class_name`,
+--   DROP COLUMN `section_name`,
+--   DROP COLUMN `roll_no`,
+--   DROP COLUMN `registration_no`,
+--   DROP COLUMN `father_name`,
+--   DROP COLUMN `phone_number`,
+--   DROP COLUMN `payment_entry_by_name`,
+--   DROP COLUMN `deleted_by_name`,
+--   ADD KEY `idx_dpl_payment_entry_by` (`payment_entry_by`);
